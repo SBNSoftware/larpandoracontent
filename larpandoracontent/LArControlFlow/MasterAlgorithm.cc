@@ -464,8 +464,10 @@ StatusCode MasterAlgorithm::RunSlicing(const VolumeIdToHitListMap &volumeIdToHit
                 continue;
 
             const HitType hitType(pCaloHit->GetHitType());
-            if ((TPC_VIEW_U != hitType) && (TPC_VIEW_V != hitType) && (TPC_VIEW_W != hitType))
+            if ((TPC_VIEW_U != hitType) && (TPC_VIEW_V != hitType) && (TPC_VIEW_W != hitType) && (HIT_CUSTOM != hitType))
                 continue;
+
+            if ( HIT_CUSTOM == hitType ) std::cout << "!!!! --BH-- Found custom hit in RunSlicing Algorithm..." << std::endl;
 
             if (m_shouldRunSlicing)
             {
@@ -501,6 +503,7 @@ StatusCode MasterAlgorithm::RunSlicing(const VolumeIdToHitListMap &volumeIdToHit
             LArPfoHelper::GetCaloHits(pSlicePfo, TPC_VIEW_U, sliceVector.back());
             LArPfoHelper::GetCaloHits(pSlicePfo, TPC_VIEW_V, sliceVector.back());
             LArPfoHelper::GetCaloHits(pSlicePfo, TPC_VIEW_W, sliceVector.back());
+            LArPfoHelper::GetCaloHits(pSlicePfo, HIT_CUSTOM, sliceVector.back());
         }
     }
 
